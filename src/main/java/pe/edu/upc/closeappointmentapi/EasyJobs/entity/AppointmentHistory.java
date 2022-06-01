@@ -1,5 +1,6 @@
 package pe.edu.upc.closeappointmentapi.EasyJobs.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,18 +17,17 @@ import java.util.Date;
 @Builder
 public class AppointmentHistory {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(name="finishDate")
     private Date finishDate;
 
-    @Column(unique = true)
-    private Integer qualification;
+    @Column(name="qualification")
+    private Double qualification;
 
-    @Column(unique = true, length = 200)
+    @Column(name="qualificationComment", length = 1000)
     private String qualificationComment;
-
+    @JsonBackReference
     @OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_id",unique = true)
     private Appointment appointment;

@@ -15,15 +15,15 @@ import java.util.List;
 @Repository
 public interface AppointmentHistoryRepository extends JpaRepository<AppointmentHistory, Long> {
 
-    @Query(value ="SELECT a FROM AppointmentHistory ah join  Appointment a WHERE a.technician.id = ?1 AND a.customer.id = ?2 AND ah.appointment.id = a.id")
+    @Query(value ="SELECT ah FROM AppointmentHistory ah join fetch  ah.appointment a WHERE a.technician.id = ?2 AND a.customer.id = ?1")
     List<AppointmentHistory> findAppointmentHistoriesByTechnicianIdAndCustomerId(Long customerId, Long technicianId);
 
     @Query(value ="SELECT a FROM AppointmentHistory a WHERE a.appointment.id = ?1")
     List<AppointmentHistory> findAppointmentHistoriesByAppointmentId(Long appointmentId);
 
-    @Query(value ="SELECT ah FROM AppointmentHistory ah JOIN Appointment a WHERE a.technician.id = ?1 and ah.appointment.id = a.id")
+    @Query(value ="SELECT ah FROM AppointmentHistory ah JOIN fetch ah.appointment a WHERE a.technician.id = ?1 ")
     List<AppointmentHistory>  findAppointmentHistoriesByTechnicianId(Long technicianId);
 
-    @Query(value ="SELECT ah FROM AppointmentHistory ah JOIN Appointment a WHERE a.customer.id = ?1 and ah.appointment.id = a.id")
+    @Query(value ="SELECT ah FROM AppointmentHistory ah JOIN fetch ah.appointment a WHERE a.customer.id = ?1 ")
     List<AppointmentHistory>  findAppointmentHistoriesByCustomerId(Long customerId);
 }

@@ -7,6 +7,7 @@ import pe.edu.upc.closeappointmentapi.EasyJobs.entity.AppointmentHistory;
 import pe.edu.upc.closeappointmentapi.EasyJobs.repository.AppointmentHistoryRepository;
 import pe.edu.upc.closeappointmentapi.EasyJobs.repository.AppointmentRepository;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,10 +22,11 @@ public class AppointmentCloseServiceImpl implements AppointmentCloseService {
     @Override
     public AppointmentHistory createAppointmentHistory(AppointmentHistory appointmentHistory, Long appointmentId) {
         AppointmentHistory newAppointmentHistory = new AppointmentHistory();
+        newAppointmentHistory.setId(appointmentId);
         newAppointmentHistory.setAppointment(appointmentRepository.findById(appointmentId).orElse(null));
-        newAppointmentHistory.setFinishDate(appointmentHistory.getFinishDate());
-        newAppointmentHistory.setQualification(0);
-        newAppointmentHistory.setQualificationComment("");
+        newAppointmentHistory.setFinishDate(new Date());
+        newAppointmentHistory.setQualification(appointmentHistory.getQualification());
+        newAppointmentHistory.setQualificationComment(appointmentHistory.getQualificationComment());
         return appointmentHistoryRepository.save(newAppointmentHistory);
     }
 
