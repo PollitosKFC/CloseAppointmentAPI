@@ -13,6 +13,8 @@ import pe.edu.upc.closeappointmentapi.EasyJobs.repository.AppointmentRepository;
 import pe.edu.upc.closeappointmentapi.EasyJobs.service.AppointmentCloseService;
 import pe.edu.upc.closeappointmentapi.EasyJobs.service.AppointmentCloseServiceImpl;
 
+import javax.validation.constraints.Null;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -32,7 +34,7 @@ public class AppointmentCloseServiceImplTest {
     }
 
     @Test
-    @DisplayName("When createdAppointmentClose with valid data then return AppointmentClose")
+    @DisplayName("When created AppointmentClose with valid data then return AppointmentClose")
     public void WhenCreatedCustomerWithValidDataThenReturnCustomer() {
         // Arrange
         AppointmentHistory appointmentClose = new AppointmentHistory();
@@ -48,5 +50,22 @@ public class AppointmentCloseServiceImplTest {
 
         // Assert
         assertThat(appointmentResult).isEqualTo(appointmentClose);
+    }
+    @Test
+    @DisplayName("When Delete AppointmentClose With Valid AppointmentClose")
+    public void WhenDeleteTechnicianWithValidTechnician() {
+        // Arrange
+        AppointmentHistory appointmentClose = new AppointmentHistory();
+        appointmentClose.setId(1L);
+        appointmentClose.setFinishDate(null);
+        appointmentClose.setQualification(1.5);
+        appointmentClose.setQualificationComment("QualificationComment");
+
+        when(appointmentHistoryRepository.save(appointmentClose)).thenAnswer(invocation -> invocation.getArgument(0));
+        appointmentHistoryRepository.deleteById(1L);
+        // Act
+        AppointmentHistory appointmentCloseResult = null;
+        // Assert
+        assertThat(appointmentCloseResult).isEqualTo(appointmentHistoryRepository.getById(1L));
     }
 }
