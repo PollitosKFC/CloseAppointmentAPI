@@ -38,7 +38,7 @@ public class AppointmentCloseServiceImplTest {
     public void WhenCreatedCustomerWithValidDataThenReturnCustomer() {
         // Arrange
         AppointmentHistory appointmentClose = new AppointmentHistory();
-        appointmentClose.setId(null);
+        appointmentClose.setId(1L);
         appointmentClose.setFinishDate(null);
         appointmentClose.setQualification(1.5);
         appointmentClose.setQualificationComment("QualificationComment");
@@ -49,7 +49,7 @@ public class AppointmentCloseServiceImplTest {
         AppointmentHistory appointmentResult = appointmentCloseService.createAppointmentHistory(appointmentClose,appointmentId);
 
         // Assert
-        assertThat(appointmentResult).isEqualTo(appointmentClose);
+        assertThat(appointmentResult).isEqualTo(appointmentHistoryRepository.getById(1L));
     }
     @Test
     @DisplayName("When Delete AppointmentClose With Valid AppointmentClose")
